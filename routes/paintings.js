@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
-var Paintings = require('../models/paintings').collection
-var Painting = require('../models/paintings').model
+var Paintings = require('../models/paintings-model').collection
+var Painting = require('../models/paintings-model').model
 
 
 
