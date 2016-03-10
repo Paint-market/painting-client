@@ -1,4 +1,4 @@
-var React = require('react')
+npm rvar React = require('react')
 
 var PaintMode = {
     FILLED: 'filled',
