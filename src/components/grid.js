@@ -135,7 +135,6 @@ module.exports = React.createClass({
         }
         return (
             <div>
-                <RenderStats ref="stats" />
                 <div>
                     <button onClick={this.handleResetButton}>Clear</button>
                 </div>
