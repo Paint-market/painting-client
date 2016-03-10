@@ -2,6 +2,9 @@ var React = require('react')
 var Paintings = require('../models/paintings-model').collection
 var List = require('./list')
 var _ = require('lodash')
+// var ColourPicker = require('./colour-picker')
+var Grid = require('./grid')
+var SketchPicker = require('react-color').SketchPicker
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -34,9 +37,16 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-     <div className='app'>
-      <List items={this.state.paintings} sort={this.sort} sorted={this.state.sorted} />
+      <div>
+        <SketchPicker type="sketch" />
+        <div id="canvasDiv">
+            <Grid width={200}
+            height={200}
+            penWidth={2.25} />
+        </div>
      </div>
     )
   }
 })
+
+
