@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
-    <meta charset="UTF-8">
-    <script src="//localhost:9091" ></script>
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="stylesheets/bootstrap-theme.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/<react-version>/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/<react-version>/react-dom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/<version>/react-bootstrap.min.js"></script>
-    <script src="bundle.js" ></script>
-    <title>Painting</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="/css/literallycanvas.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
+    <script src="/js/literallycanvas.js"></script>
   </head>
   <body>
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Home</a></li>
-      <li role="presentation"><a href="#">Profile</a></li>
-      <li role="presentation"><a href="#">Messages</a></li>
-    </ul>
-    <div id="app" ></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
+<div class="literally imgur"></div>
+
+<form class="imgur-submit">
+    <input type="submit" data-action="upload-to-imgur" value="Upload to Imgur">
+</form>
+
+<script>
+  $(document).ready(function(){
+    var lc = LC.init(document.getElementsByClassName('literally imgur')[0]);
+    $('[data-action=upload-to-imgur]').click(function(e) {
+      e.preventDefault();
+
+      $('.imgur-submit').html('Uploading...')
+
+      $.ajax({
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        headers: {
+          Authorization: 'Client-ID ' + 'faee2a793b8d069',
+          Accept: 'application/json'
+        },
+        data: {
+          image:  lc.canvasForExport().toDataURL().split(',')[1],
+          type: 'base64'
+        },
+        success: function(result) {
+          var url = 'https://imgur.com/gallery/' + result.data.id;
+          $('.imgur-submit').html("<a href='" + url + "'>" + url + "</a>");
+        },
+      });
+    });
+  });
+</script>
   </body>
 </html>

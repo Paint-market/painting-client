@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   console.log('up')
   return knex.schema.createTableIfNotExists('paintings', function (table) {
