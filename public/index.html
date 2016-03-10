@@ -3,6 +3,7 @@
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="/css/literallycanvas.css" rel="stylesheet">
+    <link href="/stylesheets/main.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js"></script>
     <script src="/js/literallycanvas.js"></script>
   </head>
@@ -13,33 +14,34 @@
 <form class="imgur-submit">
     <input type="submit" data-action="upload-to-imgur" value="Upload to Imgur">
 </form>
+<div id="canvas-container">
+  <script>
+    $(document).ready(function(){
+      var lc = LC.init(document.getElementsByClassName('literally imgur')[0]);
+      $('[data-action=upload-to-imgur]').click(function(e) {
+        e.preventDefault();
 
-<script>
-  $(document).ready(function(){
-    var lc = LC.init(document.getElementsByClassName('literally imgur')[0]);
-    $('[data-action=upload-to-imgur]').click(function(e) {
-      e.preventDefault();
+        $('.imgur-submit').html('Uploading...')
 
-      $('.imgur-submit').html('Uploading...')
-
-      $.ajax({
-        url: 'https://api.imgur.com/3/image',
-        type: 'POST',
-        headers: {
-          Authorization: 'Client-ID ' + 'faee2a793b8d069',
-          Accept: 'application/json'
-        },
-        data: {
-          image:  lc.canvasForExport().toDataURL().split(',')[1],
-          type: 'base64'
-        },
-        success: function(result) {
-          var url = 'https://imgur.com/gallery/' + result.data.id;
-          $('.imgur-submit').html("<a href='" + url + "'>" + url + "</a>");
-        },
+        $.ajax({
+          url: 'https://api.imgur.com/3/image',
+          type: 'POST',
+          headers: {
+            Authorization: 'Client-ID ' + 'faee2a793b8d069',
+            Accept: 'application/json'
+          },
+          data: {
+            image:  lc.canvasForExport().toDataURL().split(',')[1],
+            type: 'base64'
+          },
+          success: function(result) {
+            var url = 'https://imgur.com/gallery/' + result.data.id;
+            $('.imgur-submit').html("<a href='" + url + "'>" + url + "</a>");
+          },
+        });
       });
     });
-  });
-</script>
+  </script>
+</div>
   </body>
 </html>
