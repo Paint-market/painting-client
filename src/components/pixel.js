@@ -32,7 +32,6 @@ module.exports = React.createClass({
         this.props.strokePixel(this.props.x, this.props.y);
     },
     render: function() {
-        this.props.incrementRenderCount();
         return (
             <div className={
                     'pixel ' +

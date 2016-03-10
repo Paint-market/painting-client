@@ -9,13 +9,13 @@
   margin: 0;
   padding: 0;
   border: 0;
-  width: 2px;
-  height: 2px;
+  width: 30px;
+  height: 30px;
   float: left;
 }
 .pixel.start-of-row {
   clear: left;
 }
 .filled {
-  background-color: #000;
+  background-color: #ff0000;
 }

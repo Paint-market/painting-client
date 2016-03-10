@@ -1,6 +1,6 @@
 var React = require('react')
 var Pixel = require('./pixel')
-var RenderStats = require('./renderStats')
+
 
 var PaintMode = {
     FILLED: 'filled',
@@ -109,14 +109,15 @@ module.exports = React.createClass({
 
         this.lastMark = thisMark;
     },
-    incrementRenderCount: function() {
-        if (this.refs.stats) {
-            this.refs.stats.increment();
-        }
-    },
+
     render: function() {
-        this.incrementRenderCount();
         var children = [];
+        var pixels = this.props.paintingData
+
+        // var pixels = this.props.paintingData.map(f (p, i) ->
+            // return <Pixel x={} y={} key={}    
+
+        // )
         for (var j = 0; j < this.props.height; j++) {
             for (var i = 0; i < this.props.width; i++) {
                 var key = 'pixel-' + i + '-' + j;
@@ -125,7 +126,6 @@ module.exports = React.createClass({
                            y={j}
                            key={key}
                            ref={key}
-                           incrementRenderCount={this.incrementRenderCount}
                            startMousePainting={this.startMousePainting}
                            endMousePainting={this.endMousePainting}
                            strokePixel={this.strokePixel}
@@ -143,9 +143,10 @@ module.exports = React.createClass({
                      onMouseUp={this.handleMouseUp}
                      paintState={this.paintState}
                      penWidth={this.props.penWidth}>
-                    {children}
+                    {children} 
                 </div>
             </div>
         )
     }
 })
+
